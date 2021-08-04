@@ -1,6 +1,123 @@
 {
   "version": 2,
   "projects": {
+    ".-kiosk-desktop-app": {
+      "root": "apps/kiosk-desktop-app",
+      "sourceRoot": "apps/kiosk-desktop-app/src",
+      "projectType": "application",
+      "prefix": ".-kiosk-desktop-app",
+      "targets": {
+        "build": {
+          "executor": "nx-electron:build",
+          "options": {
+            "outputPath": "dist/apps/kiosk-desktop-app",
+            "main": "apps/kiosk-desktop-app/src/main.ts",
+            "tsConfig": "apps/kiosk-desktop-app/tsconfig.app.json",
+            "assets": ["apps/kiosk-desktop-app/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/kiosk-desktop-app/src/environments/environment.ts",
+                  "with": "apps/kiosk-desktop-app/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "nx-electron:execute",
+          "options": {
+            "buildTarget": ".-kiosk-desktop-app:build"
+          }
+        },
+        "package": {
+          "executor": "nx-electron:package",
+          "options": {
+            "name": ".-kiosk-desktop-app",
+            "frontendProject": "kiosk-ui",
+            "outputPath": "dist/packages",
+            "prepackageOnly": true
+          }
+        },
+        "make": {
+          "executor": "nx-electron:make",
+          "options": {
+            "name": ".-kiosk-desktop-app",
+            "frontendProject": "kiosk-ui",
+            "outputPath": "dist/executables"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/kiosk-desktop-app/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/kiosk-desktop-app"],
+          "options": {
+            "jestConfig": "apps/kiosk-desktop-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "kiosk-api": {
+      "root": "apps/kiosk-api",
+      "sourceRoot": "apps/kiosk-api/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/kiosk-api",
+            "main": "apps/kiosk-api/src/main.ts",
+            "tsConfig": "apps/kiosk-api/tsconfig.app.json",
+            "assets": ["apps/kiosk-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/kiosk-api/src/environments/environment.ts",
+                  "with": "apps/kiosk-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "kiosk-api:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/kiosk-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/kiosk-api"],
+          "options": {
+            "jestConfig": "apps/kiosk-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "kiosk-ui": {
       "root": "apps/kiosk-ui",
       "sourceRoot": "apps/kiosk-ui/src",
@@ -52,7 +169,8 @@
           "executor": "@nrwl/web:dev-server",
           "options": {
             "buildTarget": "kiosk-ui:build",
-            "hmr": true
+            "hmr": true,
+            "proxyConfig": "apps/kiosk-ui/proxy.conf.json"
           },
           "configurations": {
             "production": {

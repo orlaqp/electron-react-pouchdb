@@ -27,6 +27,12 @@
     ]
   },
   "projects": {
+    ".-kiosk-desktop-app": {
+      "tags": ["app"]
+    },
+    "kiosk-api": {
+      "tags": []
+    },
     "kiosk-ui": {
       "tags": []
     },
