@@ -3,4 +3,11 @@
 
 export const environment = {
   production: false,
+  db: {
+    contentLocal: 'content',
+    contentRemote: 'http://localhost:5984/kiosk-cache',
+    ordersLocal: 'orders',
+    ordersRemote: 'http://localhost:5984/kiosk-orders',
+
+  }
 };

@@ -39,6 +39,15 @@
     "kiosk-ui-e2e": {
       "tags": [],
       "implicitDependencies": ["kiosk-ui"]
+    },
+    "ui-data-storage": {
+      "tags": []
+    },
+    "ui-home-data-access": {
+      "tags": []
+    },
+    "ui-home-feature": {
+      "tags": []
     }
   }
 }

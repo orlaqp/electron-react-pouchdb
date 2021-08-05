@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@wawa-kiosk/ui/data-storage": ["libs/ui/data-storage/src/index.ts"],
+      "@wawa-kiosk/ui/home/data-access": [
+        "libs/ui/home/data-access/src/index.ts"
+      ],
+      "@wawa-kiosk/ui/home/feature": ["libs/ui/home/feature/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

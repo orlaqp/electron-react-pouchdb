@@ -138,7 +138,7 @@
             ],
             "styles": ["apps/kiosk-ui/src/styles.scss"],
             "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack"
+            "webpackConfig": "apps/kiosk-ui/webpack.config.js"
           },
           "configurations": {
             "production": {
@@ -217,6 +217,71 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/kiosk-ui-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "ui-data-storage": {
+      "root": "libs/ui/data-storage",
+      "sourceRoot": "libs/ui/data-storage/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/data-storage/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/data-storage"],
+          "options": {
+            "jestConfig": "libs/ui/data-storage/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui-home-data-access": {
+      "root": "libs/ui/home/data-access",
+      "sourceRoot": "libs/ui/home/data-access/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui/home/data-access/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/home/data-access"],
+          "options": {
+            "jestConfig": "libs/ui/home/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui-home-feature": {
+      "root": "libs/ui/home/feature",
+      "sourceRoot": "libs/ui/home/feature/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/home/feature/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/home/feature"],
+          "options": {
+            "jestConfig": "libs/ui/home/feature/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

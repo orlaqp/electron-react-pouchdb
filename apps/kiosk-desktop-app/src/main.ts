@@ -1,10 +1,7 @@
 import SquirrelEvents from './app/events/squirrel.events';
 import ElectronEvents from './app/events/electron.events';
-import UpdateEvents from './app/events/update.events';
 import { app, BrowserWindow } from 'electron';
 import App from './app/app';
-import DbService from './app/services/db.service';
-import { environment } from './environments/environment';
 
 export default class Main {
   static initialize() {
@@ -16,10 +13,6 @@ export default class Main {
 
   static bootstrapApp() {
     App.main(app, BrowserWindow);
-  }
-
-  static setupDbConnections() {
-    DbService.connect(environment.db);
   }
 
   static bootstrapAppEvents() {
@@ -36,6 +29,5 @@ export default class Main {
 Main.initialize();
 
 // bootstrap app
-Main.setupDbConnections();
 Main.bootstrapApp();
 Main.bootstrapAppEvents();
