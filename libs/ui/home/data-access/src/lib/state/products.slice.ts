@@ -6,8 +6,8 @@ import {
   EntityState,
   PayloadAction
 } from '@reduxjs/toolkit';
-import { getDataStorageInstance } from '@wawa-kiosk/ui/data-storage';
 import { Product } from 'libs/ui/data-storage/src/models/product';
+import { getDataStorageInstance } from '@wawa-kiosk/ui/data-storage';
 
 export const PRODUCTS_FEATURE_KEY = 'products';
 

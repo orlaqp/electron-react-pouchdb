@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit"
+import { dataStoreReducer } from "@wawa-kiosk/ui/data-storage";
 import { productsReducer } from '@wawa-kiosk/ui/home/data-access';
 
 export const store = configureStore({
     reducer: {
+        dataStore: dataStoreReducer,
         products: productsReducer
     },
   })

@@ -11,24 +11,50 @@ class DbService {
     private ordersRemote: PouchDB.Database<{}>;
 
     constructor(private config: DbConfig) {
-        this.contentLocal = new PouchDB(this.config.contentLocal);
+        // .on('change', function (change) {
+            //     console.log('CHANGES');
+            //   }).on('paused', function (info) {
+                //     console.log('PAUSED');
+                //   }).on('active', function (info) {
+                    //     console.log('ACTIVE');
+                    //   }).on('error', function (err) {
+                        //     console.log('ERROR');
+                        //   });
+                        
+        this.contentLocal = new PouchDB(this.config.contentLocal)
         this.contentRemote = new PouchDB(this.config.contentRemote);
         this.ordersLocal = new PouchDB(this.config.ordersLocal);
         this.ordersRemote = new PouchDB(this.config.ordersRemote);
-        
-        // setup indexes
-        // this.contentLocal.createIndex({
-        //     index: {fields: ['type']}
-        // });
-        // setup replication
-        this.contentLocal.replicate.from(this.contentRemote, { live: true, retry: true })
-        this.ordersLocal.replicate.to(this.ordersRemote, { live: true, retry: true })
 
-        this.subscribeToDbEvents(this.contentLocal);
+        try {
+            this.ordersLocal.replicate.to(this.ordersRemote, { live: true, retry: true });
+        } catch (error) {
+            console.error('Error replicating orders database');
+        }
+    }
+
+    processContentReplication(): Promise<PouchDB.Replication.ReplicationResultComplete<{}>> {
+        return new Promise((resolve, reject) => {
+            try {
+                this.contentLocal.replicate.from(this.contentRemote)
+                    .on('complete', (info) => {
+                        this.contentLocal.replicate.from(this.contentRemote, { live: true, retry: true })
+                            .on('change', (info) => this.onChanges(info));
+                        resolve(info);
+                    });
+            } catch (error) {
+                // For now just print the error
+                console.error('Error syncronizing content database');
+                console.error(error);
+                reject(error);
+            }
+        });
+    }
+    onChanges(info: PouchDB.Replication.ReplicationResult<{}>): any {
+        alert('new content changes have been received');
     }
 
     private subscribeToDbEvents(dbInstance: PouchDB.Database<{}>): void {
-        
         dbInstance.on('complete', () => {
             console.log('database replication has been completed');
         })

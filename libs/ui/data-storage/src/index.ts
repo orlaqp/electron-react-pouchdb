@@ -1,3 +1,4 @@
 export { DbConfig } from './interfaces';
+export { getDataStorageInstance } from './services/db.service';
 export * from './models';
-export { initializeDataStorage, getDataStorageInstance } from './services/db.service';
+export * from './state/data-store.slice';
