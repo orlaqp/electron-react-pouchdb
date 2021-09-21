@@ -122,7 +122,7 @@ export const stateproductsActions = stateproductsSlice.actions;
  */
 const { selectAll, selectEntities } = stateproductsAdapter.getSelectors();
 
-export const getStateproductsState = (rootState: unknown): ProductsState => rootState[PRODUCTS_FEATURE_KEY];
+export const getStateproductsState = (rootState: any): ProductsState => rootState[PRODUCTS_FEATURE_KEY];
 
 export const selectAllStateproducts = createSelector(getStateproductsState, selectAll);
 

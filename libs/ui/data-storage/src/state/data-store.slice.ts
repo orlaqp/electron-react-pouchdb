@@ -41,4 +41,4 @@ export const dataStoreSlide = createSlice({
 export const dataStoreReducer = dataStoreSlide.reducer;
 export const dataStoreActions = dataStoreSlide.actions;
 // selectors
-export const contentStatusSelector = (state) => state.dataStore.contentStatus;
+export const contentStatusSelector = (state: any) => state.dataStore.contentStatus;
